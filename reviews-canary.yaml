@@ -13,6 +13,9 @@ spec:
   - name: v2
     labels:
       version: v2
+  - name: v3
+    labels:
+      version: v3
 ---
 # 실제로 트래픽이 들어왔을 때, 어떤 비율로 나누어 보낼지 결정하는 '교통 정리' 역할
 # 현재 트래픽이 v1에 90% v2에 10% 배정된다.
@@ -28,8 +31,12 @@ spec:
     - destination:
         host: reviews
         subset: v1
-      weight: 90
+      weight: 60
     - destination:
         host: reviews
         subset: v2
+      weight: 30
+    - destination:
+        host: reviews
+        subset: v3
       weight: 10
