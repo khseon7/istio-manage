@@ -11,6 +11,12 @@ Istio의 트래픽 관리와 서비스 메시 동작을 학습해보는 실습�
 5. `kubectl apply -f istio-1.29.2/samples/bookinfo/platform/kube/bookinfo.yaml` 을 바탕으로 Bookinfo 샘플 앱 배포(이후 `kubectl get pods` 로 파드들이 READY 2/2인지 확인)
 6. `kubectl apply -f istio-1.29.2/samples/bookinfo/networking/bookinfo-gateway.yaml` 을 바탕으로 EKS 외부에서 서비스에 접속할 수 있도록 입구를 열어줌(`kubectl get svc istio-ingressgateway -n istio-system` 을 통해 접속 주소 확인)
 
+## 사용 커맨드
+- `kubectl apply -f istio-1.29.2/samples/addons/prometheus.yaml`: Prometheus 설치
+- `kubectl apply -f istio-1.29.2/samples/addons/grafana.yaml`: Grafana 설치
+  - `ssh -i "<key-value>.pem" -L 3000:localhost:3000 ubuntu@<EC2-public-IP>`(내 노트북 터미널에서 실행)
+  - `kubectl -n istio-system port-forward svc/grafana 3000:3000 --address 0.0.0.0`(EC2 내부에서 실행)
+
 ## 스크립트
 
 - `create-eks.sh`
