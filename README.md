@@ -34,6 +34,11 @@ Istio의 트래픽 관리와 서비스 메시 동작을 학습해보는 실습�
     - `CLUSTER_NAME`: 삭제할 클러스터 이름
     - `REGION`: AWS 리전
 
+- `install-flagger.sh`
+  - `helm`을 사용해 Flagger를 `flagger` 네임스페이스에 설치합니다.
+  - Flagger의 `meshProvider`를 `istio`로 설정하고, 지표 수집 대상은 `prometheus.istio-system:9090`으로 연결합니다.
+  - 설치 완료 후 `kubectl get pods -n flagger`로 정상 기동 여부를 확인합니다.
+
 ## 사전 준비
 
 - AWS 자격 증명 설정 완료 (`aws configure` 또는 IAM Role)
