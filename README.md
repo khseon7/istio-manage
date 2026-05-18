@@ -17,6 +17,14 @@ Istio의 트래픽 관리와 서비스 메시 동작을 학습해보는 실습�
   - `ssh -i "<key-value>.pem" -L 3000:localhost:3000 ubuntu@<EC2-public-IP>`(내 노트북 터미널에서 실행)
   - `kubectl -n istio-system port-forward svc/grafana 3000:3000 --address 0.0.0.0`(EC2 내부에서 실행)
 
+## yaml 파일
+- `reviews-canary.yaml`
+  - Istio `DestinationRule`/`VirtualService`를 사용해 `reviews` 서비스 트래픽을 `v1`/`v2` 서브셋으로 분산합니다.
+  - 예시 기준으로 `v1` 80%, `v2` 20% 비율의 카나리 라우팅을 학습할 수 있습니다.
+- `reviews-flagger.yaml`
+  - Flagger `Canary` 리소스를 사용해 `reviews` 배포를 자동 카나리 방식으로 진행합니다.
+  - Prometheus 지표(성공률) 기반으로 트래픽을 단계적으로 늘리고, 임계치 미달 시 롤백하는 정책을 포함합니다.
+
 ## 스크립트
 
 - `create-eks.sh`
