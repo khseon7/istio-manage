@@ -35,13 +35,29 @@ spec:
       tls:
         mode: ISTIO_MUTUAL # mTLS
   # 배포 및 롤백 전략 (기술적 근거)
+  # analysis:
+  #   interval: 1m # 30초마다 Prometheus 지표 체크
+  #   threshold: 10 # 실패 임계치
+  #   maxWeight: 50 # 신규 버전으로 보내는 트래픽을 최대 50%까지 확장
+  #   stepWeight: 10 # 한 번의 분석 주기마다 트래픽을 10%씩 점진적으로 올림
+  #   metrics:
+  #     - name: request-success-rate # HTTP 요청 성공률
+  #       thresholdRange:
+  #         min: 95 # 성공률 99% 미만의 경우 실패로 간주
+  #       interval: 1m # 최근 1분간 데이터 합산하여 계산
   analysis:
-    interval: 1m # 30초마다 Prometheus 지표 체크
-    threshold: 10 # 실패 임계치
-    maxWeight: 50 # 신규 버전으로 보내는 트래픽을 최대 50%까지 확장
-    stepWeight: 10 # 한 번의 분석 주기마다 트래픽을 10%씩 점진적으로 올림
+    interval: 30s
+    threshold: 5
+    iterations: 10
+    match:
+      - headers:
+          user-agent:
+            regex: ".*Chrome.*"
+      - headers:
+          x-canary-test:
+            exact: "true"      # 커스텀 헤더가 있는 요청만 타겟팅
     metrics:
-      - name: request-success-rate # HTTP 요청 성공률
+      - name: request-success-rate
         thresholdRange:
-          min: 95 # 성공률 99% 미만의 경우 실패로 간주
-        interval: 1m # 최근 1분간 데이터 합산하여 계산
+          min: 95
+        interval: 1m
