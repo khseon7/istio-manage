@@ -36,7 +36,7 @@ spec:
         mode: ISTIO_MUTUAL # mTLS
   # 배포 및 롤백 전략 (기술적 근거)
   # analysis:
-  #   interval: 1m # 30초마다 Prometheus 지표 체크
+  #   interval: 1m # 1분마다 Prometheus 지표 체크
   #   threshold: 10 # 실패 임계치
   #   maxWeight: 50 # 신규 버전으로 보내는 트래픽을 최대 50%까지 확장
   #   stepWeight: 10 # 한 번의 분석 주기마다 트래픽을 10%씩 점진적으로 올림
